@@ -1,5 +1,5 @@
 export class User {
-    constructor(fullName, email, password, businessName, industry, domain, product, type, storage_size) {
+    constructor({fullName, email, password, businessName, industry, domain, product, type, storage_size}) {
         this.fullName = fullName
         this.email = email
         this.password = password
