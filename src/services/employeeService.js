@@ -12,6 +12,7 @@ export default class EmployeeService {
 
     async addEmployee(employeeData) {
         const newEmployee = new Employee({ ...employeeData })
+        console.log(newEmployee)
         return this.employeeRepository.addEmployee({ ...newEmployee })
     }
 

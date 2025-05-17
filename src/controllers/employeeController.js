@@ -16,7 +16,7 @@ export default class EmployeeController {
 
     async addEmployee(req, res, next) {
         try {
-            // console.log("Request body: ", req.body)
+            console.log("Request body: ", req.body)
             const employee = await this.employeeService.addEmployee(req.body)
             res.status(201).json(employee)
         } catch (error) {
