@@ -25,7 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "proyecto-computo-back": "file:"
   },
-    "devDependencies": {
+  "devDependencies": {
     "nodemon": "^3.1.9"
   }
 }
