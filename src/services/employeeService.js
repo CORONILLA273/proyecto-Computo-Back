@@ -41,4 +41,12 @@ export default class EmployeeService {
         }
         return this.employeeRepository.toggleEmployeeStatus(id, newStatus)
     }
+
+    async getEmployeeByName(fullName) {
+        const employee = await this.employeeRepository.getEmployeeByName(fullName)
+        if (!employee) {
+            throw { message: 'Employee Not Found', statusCode: 404 }
+        }
+        return employee
+    }
 }

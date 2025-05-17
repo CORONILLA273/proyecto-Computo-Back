@@ -52,4 +52,13 @@ export default class EmployeeController {
             next(error)
         }
     }
+
+    async getEmployeeByName(req, res, next) {
+        try {
+            const employee = await this.employeeService.getEmployeeByName(req.params.fullName)
+            res.status(200).json(employee)
+        } catch (error) {
+            next(error)
+        }
+    }
 }

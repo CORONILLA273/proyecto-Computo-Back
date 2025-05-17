@@ -13,6 +13,12 @@ const employeeRoutes = [
         handler: 'getAllEmployees'
     },
     {
+        method: 'get',
+        path: '/:fullName',
+        // middleware: []
+        handler: 'getEmployeeByName'
+    },
+    {
         method: 'post',
         path: '/addEmployee',
         // middleware: []

@@ -29,9 +29,11 @@ export default class EmployeeRepository extends IEmployeeRepository {
         }))
     }
 
-    async getEmployeeById(id) {
-        const employee = await this.collection.doc(id).get()
-        return employee.exists ? { id, ...employee.data() } : null
+    async getEmployeeByName(fullName) {
+        const employee = await this.collection.where('fullName', '==', fullName).get()
+        return employee.empty ? null : employee.docs.map(doc => ({
+            id: doc.id, ...doc.data()
+        }))[0]
     }
 
     async toggleEmployeeStatus(id, newStatus) {
