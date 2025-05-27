@@ -40,4 +40,11 @@ export default class SupplierRepository extends ISupplierRepository {
         const supplier = await this.collection.doc(id).get()
         return supplier.exists ? { id, ...supplier.data() } : null
     }
+
+    async toggleSupplierStatus(id, newStatus) {
+        console.log('@@@ id => ', id)
+        console.log('@@@ newStatus => ', newStatus)
+        await this.collection.doc(id).update({ status: newStatus })
+        return { id, newStatus }
+    }
 }

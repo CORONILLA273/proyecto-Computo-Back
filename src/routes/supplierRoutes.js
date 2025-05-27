@@ -31,6 +31,12 @@ const supplierRoutes = [
         // middleware: []
         handler: 'deleteSupplier'
     },
+    {
+        method: 'patch',
+        path: '/toggleSupplierStatus/:id',
+        // middleware: []
+        handler: 'toggleSupplierStatus'
+    },
 ]
 
 supplierRoutes.forEach(route => {

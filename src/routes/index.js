@@ -5,6 +5,7 @@ import customerRoutes from './customerRoutes.js'
 import employeeRoutes from './employeeRoutes.js'
 import supplierRoutes from './supplierRoutes.js'
 import departmentRoutes from './departmentRoutes.js'
+import categoryRoutes from './categoryRoutes.js'
 
 const router = express.Router()
 
@@ -18,5 +19,6 @@ router.use('/customers', customerRoutes)
 router.use('/employees', employeeRoutes)
 router.use('/suppliers', supplierRoutes)
 router.use('/departments', departmentRoutes)
+router.use('/categories', categoryRoutes)
 
 export default router

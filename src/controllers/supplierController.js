@@ -41,4 +41,15 @@ export default class SupplierController {
             next(error)
         }
     }
+
+    async toggleSupplierStatus(req, res, next) {
+            try {
+                console.log('@@@ id => ', req.params.id)
+                console.log('@@@ status => ', req.body.status)
+                const supplier = await this.supplierService.toggleSupplierStatus(req.params.id, req.body.status)
+                res.status(200).json(supplier)
+            } catch (error) {
+                next(error)
+            }
+        }
 }

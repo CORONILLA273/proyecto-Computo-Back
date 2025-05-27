@@ -40,4 +40,12 @@ export default class SupplierService {
         }
         return this.SupplierRepository.deleteSupplier(id)
     }
+
+    async toggleSupplierStatus(id, newStatus) {
+            const toggleSupplierStatus = await this.SupplierRepository.getSupplierById(id)
+            if (!toggleSupplierStatus) {
+                throw { message: 'Supplier Not Found', statusCode: 404 }
+            }
+            return this.SupplierRepository.toggleSupplierStatus(id, newStatus)
+        }
 }

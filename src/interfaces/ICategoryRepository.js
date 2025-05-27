@@ -1,30 +1,30 @@
-export default class ISupplierRepository {
+export default class ICategoryRepository {
     
-    addProduct(supplier) {
+    addCategory(category) {
         throw new Error('Method Not Implemented')
     }
 
-    updateProduct(id, updateSupplier) {
+    updateCategory(id, updateCategory) {
         throw new Error('Method Not Implemented')
     }
 
-    deleteProduct(id) {
+    deleteCategory(id) {
         throw new Error('Method Not Implemented')
     }
 
-    getAllProducts() {
+    getAllCategories() {
         throw new Error('Method Not Implemented')
     }
 
-    findProductByName(fullName) {
+    findCategoryByName(categoryName) {
         throw new Error('Method Not Implemented')
     }
 
-    getProductById(id) {
+    getCategoryById(id) {
         throw new Error('Method Not Implemented')
     }
 
-    toggleSupplierStatus(id, status) {
+    toggleCategoryStatus(id, status) {
         throw new Error('Method Not Implemented')
     }
 }
