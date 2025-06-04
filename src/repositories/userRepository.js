@@ -56,4 +56,10 @@ export default class UserRepository extends IUserRepository {
         const userLogged = await user.get()
         return userLogged.exists ? userLogged.data().currentSessionToken : null
     }
+
+    async findByUser(user) {
+        const usuario = await this.collection.where('usuario' , '==', user).get()   
+        
+        return usuario.empty ? null : { id: usuario.docs[0].id, ...usuario.docs[0].data() } 
+    }
 }

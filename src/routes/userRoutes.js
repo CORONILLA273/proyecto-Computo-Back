@@ -24,6 +24,12 @@ const userRoutes = [
         method: 'post',
         path: '/logout',
         handle: 'logout'
+    },
+    {
+        method: 'get',
+        path: '/user',
+        // middleware: [authMiddleware],
+        handle: 'getUserByUsername'
     }
 ]
 

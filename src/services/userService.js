@@ -64,4 +64,14 @@ export default class UserService {
         await this.userRepository.updateSessionToken(userId, null)
         await TokenService.revokedToken(token)
     }
+
+    async getByUser(usuario) {
+        const user = await this.userRepository.findByUser(usuario)
+
+        if(!user) {
+            throw { message: 'El usuario no existe', statusCode: 404 }
+        }
+
+        return user
+    }
 }

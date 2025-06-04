@@ -50,4 +50,21 @@ export default class UserController {
             next(error)
         }
     }
+
+    async getUserByUsername(req, res, next) {
+        try {
+            const { usuario } = req.user
+            if(!usuario) {
+                throw { message: 'Usuario no encontrado', statusCode: 404 }
+            }
+
+            const user = await this.UserService.getByUser(usuario)
+            if(!user) {
+                throw { message: 'Usuario no encontrado', statusCode: 404 }
+            }
+            res.json({user})
+        } catch (error) {
+            next(error)
+        }
+    }
 }
