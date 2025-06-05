@@ -1,6 +1,6 @@
 import express from 'express'
 import SupplierController from '../controllers/supplierController.js'
-// import { roleMiddleware } from '../middlewares/roleMiddleware.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 const supplierController = new SupplierController()
@@ -9,40 +9,41 @@ const supplierRoutes = [
     {
         method: 'get',
         path: '/',
-        // middleware: []
         handler: 'getAllSuppliers'
     },
     {
         method: 'post',
         path: '/addSupplier',
-        // middleware: []
-        handler: 'addSupplier'
+        handler: 'addSupplier',
+        protected: true
     },
     {
         method: 'put',
         path: '/updateSupplier/:id',
-        // middleware: []
-        handler: 'updateSupplier'
+        handler: 'updateSupplier',
+        protected: true
     },
     
     {
         method: 'delete',
         path: '/deleteSupplier/:id',
-        // middleware: []
-        handler: 'deleteSupplier'
+        handler: 'deleteSupplier',
+        protected: true
     },
     {
         method: 'patch',
         path: '/toggleSupplierStatus/:id',
-        // middleware: []
-        handler: 'toggleSupplierStatus'
+        handler: 'toggleSupplierStatus',
+        protected: true
     },
 ]
 
 supplierRoutes.forEach(route => {
+    const middlewares = route.protected ? [authMiddleware] : []
     router[route.method](
         route.path,
-        /* ...route.middleware, */ supplierController[route.handler].bind(supplierController)
+        ...middlewares,
+        supplierController[route.handler].bind(supplierController)
     )
 })
 

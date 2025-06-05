@@ -1,6 +1,6 @@
 import express from 'express'
 import StoreController from '../controllers/storeController.js'
-// import { roleMiddleware } from '../middlewares/roleMiddleware.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 const storeController = new StoreController()
@@ -9,40 +9,41 @@ const storeRoutes = [
     {
         method: 'get',
         path: '/',
-        // middleware: []
         handler: 'getAllStores'
     },
     {
         method: 'post',
         path: '/addStore',
-        // middleware: []
-        handler: 'addStore'
+        handler: 'addStore',
+        protected: true
     },
     {
         method: 'put',
         path: '/updateStore/:id',
-        // middleware: []
-        handler: 'updateStore'
+        handler: 'updateStore',
+        protected: true
     },
     
     {
         method: 'delete',
         path: '/deleteStore/:id',
-        // middleware: []
-        handler: 'deleteStore'
+        handler: 'deleteStore',
+        protected: true
     },
     {
         method: 'patch',
         path: '/toggleStoreStatus/:id',
-        // middleware: []
-        handler: 'toggleStoreStatus'
+        handler: 'toggleStoreStatus',
+        protected: true
     },
 ]
 
 storeRoutes.forEach(route => {
+    const middlewares = route.protected ? [authMiddleware] : []
     router[route.method](
         route.path,
-        /* ...route.middleware, */ storeController[route.handler].bind(storeController)
+        ...middlewares,
+        storeController[route.handler].bind(storeController)
     )
 })
 

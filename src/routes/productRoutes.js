@@ -1,6 +1,6 @@
 import express from 'express'
 import ProductController from '../controllers/productController.js'
-// import { roleMiddleware } from '../middlewares/roleMiddleware.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 const productController = new ProductController()
@@ -9,34 +9,35 @@ const productRoutes = [
     {
         method: 'get',
         path: '/',
-        // middleware: []
-        handler: 'getAllProducts'
+        handler: 'getAllProducts',
+        protected: false
     },
     {
         method: 'post',
         path: '/addProduct',
-        // middleware: []
-        handler: 'addProduct'
+        handler: 'addProduct',
+        protected: true
     },
     {
         method: 'put',
         path: '/updateProduct/:id',
-        // middleware: []
-        handler: 'updateProduct'
+        handler: 'updateProduct',
+        protected: true
     },
-    
     {
         method: 'delete',
         path: '/deleteProduct/:id',
-        // middleware: []
-        handler: 'deleteProduct'
+        handler: 'deleteProduct',
+        protected: true
     },
 ]
 
 productRoutes.forEach(route => {
+    const middlewares = route.protected ? [authMiddleware] : []
     router[route.method](
         route.path,
-        /* ...route.middleware, */ productController[route.handler].bind(productController)
+        ...middlewares,
+        productController[route.handler].bind(productController)
     )
 })
 

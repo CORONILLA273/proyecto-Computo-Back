@@ -1,6 +1,6 @@
 import express from 'express'
 import PurchaseController from '../controllers/purchaseController.js'
-// import { roleMiddleware } from '../middlewares/roleMiddleware.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 const purchaseController = new PurchaseController()
@@ -9,40 +9,41 @@ const purchaseRoutes = [
     {
         method: 'get',
         path: '/',
-        // middleware: []
         handler: 'getAllPurchases'
     },
     {
         method: 'post',
         path: '/addPurchase',
-        // middleware: []
-        handler: 'addPurchase'
+        handler: 'addPurchase',
+        protected: true
     },
     {
         method: 'put',
         path: '/updatePurchase/:id',
-        // middleware: []
-        handler: 'updatePurchase'
+        handler: 'updatePurchase',
+        protected: true
     },
     
     {
         method: 'delete',
         path: '/deletePurchase/:id',
-        // middleware: []
-        handler: 'deletePurchase'
+        handler: 'deletePurchase',
+        protected: true
     },
     {
         method: 'patch',
         path: '/togglePurchaseStatus/:id',
-        // middleware: []
-        handler: 'togglePurchaseStatus'
+        handler: 'togglePurchaseStatus',
+        protected: true
     },
 ]
 
 purchaseRoutes.forEach(route => {
+    const middlewares = route.protected ? [authMiddleware] : []
     router[route.method](
         route.path,
-        /* ...route.middleware, */ purchaseController[route.handler].bind(purchaseController)
+        ...middlewares,
+        purchaseController[route.handler].bind(purchaseController)
     )
 })
 

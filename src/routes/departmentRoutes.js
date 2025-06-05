@@ -1,6 +1,6 @@
 import express from 'express'
 import DepartmentController from '../controllers/departmentController.js'
-// import { roleMiddleware } from '../middlewares/roleMiddleware.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 const departmentController = new DepartmentController()
@@ -9,39 +9,41 @@ const departmentRoutes = [
     {
         method: 'get',
         path: '/',
-        // middleware: []
-        handler: 'getAllDepartments'
+        handler: 'getAllDepartments',
+        protected: false
     },
     {
         method: 'post',
         path: '/addDepartment',
-        // middleware: []
-        handler: 'addDepartment'
+        handler: 'addDepartment',
+        protected: true
     },
     {
         method: 'put',
         path: '/updateDepartment/:id',
-        // middleware: []
-        handler: 'updateDepartment'
+        handler: 'updateDepartment',
+        protected: true
     },
     {
         method: 'delete',
         path: '/deleteDepartment/:id',
-        // middleware: []
-        handler: 'deleteDepartment'
+        handler: 'deleteDepartment',
+        protected: true
     },
     {
         method: 'patch',
         path: '/toggleDepartmentStatus/:id',
-        // middleware: []
-        handler: 'toggleDepartmentStatus'
+        handler: 'toggleDepartmentStatus',
+        protected: true
     },
 ]
 
 departmentRoutes.forEach(route => {
+    const middlewares = route.protected ? [authMiddleware] : []
     router[route.method](
         route.path,
-        /* ...route.middleware, */ departmentController[route.handler].bind(departmentController)
+        ...middlewares,
+        departmentController[route.handler].bind(departmentController)
     )
 })
 

@@ -1,6 +1,6 @@
 import express from 'express'
 import CategoryController from '../controllers/categoryController.js'
-// import { roleMiddleware } from '../middlewares/roleMiddleware.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 const categoryController = new CategoryController()
@@ -9,40 +9,41 @@ const categoryRoutes = [
     {
         method: 'get',
         path: '/',
-        // middleware: []
         handler: 'getAllCategories'
     },
     {
         method: 'post',
         path: '/addCategory',
-        // middleware: []
-        handler: 'addCategory'
+        handler: 'addCategory',
+        protected: true
     },
     {
         method: 'put',
         path: '/updateCategory/:id',
-        // middleware: []
-        handler: 'updateCategory'
+        handler: 'updateCategory',
+        protected: true
     },
     
     {
         method: 'delete',
         path: '/deleteCategory/:id',
-        // middleware: []
-        handler: 'deleteCategory'
+        handler: 'deleteCategory',
+        protected: true
     },
     {
         method: 'patch',
         path: '/toggleCategoryStatus/:id',
-        // middleware: []
-        handler: 'toggleCategoryStatus'
+        handler: 'toggleCategoryStatus',
+        protected: true
     },
 ]
 
 categoryRoutes.forEach(route => {
+    const middlewares = route.protected ? [authMiddleware] : []
     router[route.method](
         route.path,
-        /* ...route.middleware, */ categoryController[route.handler].bind(categoryController)
+        ...middlewares,
+        categoryController[route.handler].bind(categoryController)
     )
 })
 

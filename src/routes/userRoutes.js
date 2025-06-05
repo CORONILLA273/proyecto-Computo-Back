@@ -1,5 +1,6 @@
 import express from 'express'
 import UserController from '../controllers/userController.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 const userController = new UserController()
@@ -8,7 +9,8 @@ const userRoutes = [
     {
         method: 'get',
         path: '/',
-        handle: 'getAll'
+        handle: 'getAll',
+        protected: true
     },
     {
         method: 'post',
@@ -23,19 +25,22 @@ const userRoutes = [
     {
         method: 'post',
         path: '/logout',
-        handle: 'logout'
+        handle: 'logout',
+        protected: true
     },
     {
         method: 'get',
         path: '/user',
-        // middleware: [authMiddleware],
-        handle: 'getUserByUsername'
+        handle: 'getUserByUsername',
+        protected: true
     }
 ]
 
 userRoutes.forEach(route => {
+    const middlewares = route.protected ? [authMiddleware] : []
     router[route.method](
         route.path,
+        ...middlewares,
         userController[route.handle].bind(userController)
     )
 })

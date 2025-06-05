@@ -1,6 +1,6 @@
 import express from 'express'
 import StockController from '../controllers/stockController.js'
-// import { roleMiddleware } from '../middlewares/roleMiddleware.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 const stockController = new StockController()
@@ -9,40 +9,41 @@ const stockRoutes = [
     {
         method: 'get',
         path: '/',
-        // middleware: []
         handler: 'getAllStocks'
     },
     {
         method: 'post',
         path: '/addStock',
-        // middleware: []
-        handler: 'addStock'
+        handler: 'addStock',
+        protected: true
     },
     {
         method: 'put',
         path: '/updateStock/:id',
-        // middleware: []
-        handler: 'updateStock'
+        handler: 'updateStock',
+        protected: true
     },
     
     {
         method: 'delete',
         path: '/deleteStock/:id',
-        // middleware: []
-        handler: 'deleteStock'
+        handler: 'deleteStock',
+        protected: true
     },
     {
         method: 'patch',
         path: '/toggleStockStatus/:id',
-        // middleware: []
-        handler: 'toggleStockStatus'
+        handler: 'toggleStockStatus',
+        protected: true
     },
 ]
 
 stockRoutes.forEach(route => {
+    const middlewares = route.protected ? [authMiddleware] : []
     router[route.method](
         route.path,
-        /* ...route.middleware, */ stockController[route.handler].bind(stockController)
+        ...middlewares,
+        stockController[route.handler].bind(stockController)
     )
 })
 

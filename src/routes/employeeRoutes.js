@@ -1,6 +1,6 @@
 import express from 'express'
 import EmployeeController from '../controllers/employeeController.js'
-// import { roleMiddleware } from '../middlewares/roleMiddleware.js'
+import authMiddleware from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 const employeeController = new EmployeeController()
@@ -9,45 +9,45 @@ const employeeRoutes = [
     {
         method: 'get',
         path: '/',
-        // middleware: []
         handler: 'getAllEmployees'
     },
     {
         method: 'get',
         path: '/:fullName',
-        // middleware: []
         handler: 'getEmployeeByName'
     },
     {
         method: 'post',
         path: '/addEmployee',
-        // middleware: []
-        handler: 'addEmployee'
+        handler: 'addEmployee',
+        protected: true
     },
     {
         method: 'put',
         path: '/updateEmployee/:id',
-        // middleware: []
-        handler: 'updateEmployee'
+        handler: 'updateEmployee',
+        protected: true
     },
     {
         method: 'delete',
         path: '/deleteEmployee/:id',
-        // middleware: []
-        handler: 'deleteEmployee'
+        handler: 'deleteEmployee',
+        protected: true
     },
     {
         method: 'patch',
         path: '/toggleEmployeeStatus/:id',
-        // middleware: []
-        handler: 'toggleEmployeeStatus'
+        handler: 'toggleEmployeeStatus',
+        protected: true
     },
 ]
 
 employeeRoutes.forEach(route => {
+    const middlewares = route.protected ? [authMiddleware] : []
     router[route.method](
         route.path,
-        /* ...route.middleware, */ employeeController[route.handler].bind(employeeController)
+        ...middlewares,
+        employeeController[route.handler].bind(employeeController)
     )
 })
 
