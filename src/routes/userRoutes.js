@@ -10,7 +10,6 @@ const userRoutes = [
         method: 'get',
         path: '/',
         handle: 'getAll',
-        protected: true
     },
     {
         method: 'post',
