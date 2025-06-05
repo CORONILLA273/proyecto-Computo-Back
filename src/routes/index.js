@@ -9,6 +9,7 @@ import categoryRoutes from './categoryRoutes.js'
 import purchaseRoutes from './purchaseRoutes.js'
 import storeRoutes from './storeRoutes.js'
 import stockRoutes from './stockRoutes.js'
+import saleRoutes from './saleRoutes.js'
 
 const router = express.Router()
 
@@ -26,5 +27,6 @@ router.use('/categories', categoryRoutes)
 router.use('/purchases', purchaseRoutes)
 router.use('/stores', storeRoutes)
 router.use('/stocks', stockRoutes)
+router.use('/sales', saleRoutes)
 
 export default router
