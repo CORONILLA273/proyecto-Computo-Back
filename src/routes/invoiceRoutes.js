@@ -15,26 +15,26 @@ const invoiceRoutes = [
         method: 'post',
         path: '/addInvoice',
         handler: 'addInvoice',
-        protected: false
+        protected: true
     },
     {
         method: 'put',
         path: '/updateInvoice/:id',
         handler: 'updateInvoice',
-        protected: false
+        protected: true
     },
     
     {
         method: 'delete',
         path: '/deleteInvoice/:id',
         handler: 'deleteInvoice',
-        protected: false
+        protected: true
     },
     {
         method: 'patch',
         path: '/toggleInvoiceStatus/:id',
         handler: 'toggleInvoiceStatus',
-        protected: false
+        protected: true
     },
 ]
 
