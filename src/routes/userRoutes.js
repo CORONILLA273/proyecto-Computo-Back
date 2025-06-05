@@ -30,7 +30,7 @@ const userRoutes = [
     {
         method: 'get',
         path: '/user',
-        handle: 'getUserByUsername',
+        handle: 'getUserFromToken',
         protected: true
     }
 ]

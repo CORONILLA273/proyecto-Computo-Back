@@ -67,4 +67,17 @@ export default class UserController {
             next(error)
         }
     }
+
+    async getUserFromToken(req, res) {
+        console.log('User from token:', req.user)
+
+        const userId = req.user.id
+        const user = await this.UserService.getById(userId)
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' })
+        }
+
+        res.json(user)
+    }
 }

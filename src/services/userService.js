@@ -35,9 +35,14 @@ export default class UserService {
         }
 
         const existingToken = await this.userRepository.getSessionToken(foundUser.id)
-        console.log(existingToken);
-        if(existingToken) {
-            throw { message: 'User has already logged in', statusCode: 401 }
+        if (existingToken) {
+            try {
+                jwt.verify(existingToken, process.env.JWT_SECRET)
+                throw { message: 'User has already logged in', statusCode: 401 }
+            } catch (err) {
+                console.log('Token anterior expirado, se permite nuevo login.')
+                await this.userRepository.updateSessionToken(foundUser.id, null)
+            }
         }
 
         const validPassword = await bcrypt.compare(password, foundUser.password)
@@ -68,6 +73,16 @@ export default class UserService {
     async getByUser(usuario) {
         const user = await this.userRepository.findByUser(usuario)
 
+        if(!user) {
+            throw { message: 'El usuario no existe', statusCode: 404 }
+        }
+
+        return user
+    }
+
+    async getById(userId) {
+        const user = await this.userRepository.findById(userId)
+        
         if(!user) {
             throw { message: 'El usuario no existe', statusCode: 404 }
         }

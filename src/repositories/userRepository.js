@@ -62,4 +62,10 @@ export default class UserRepository extends IUserRepository {
         
         return usuario.empty ? null : { id: usuario.docs[0].id, ...usuario.docs[0].data() } 
     }
+
+    async findById(id) {
+        console.log('ID recibido en findById:', id)
+        const user = await this.collection.doc(id).get()
+        return user.exists ? { id: user.id, ...user.data() } : null
+    }
 }

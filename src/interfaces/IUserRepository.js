@@ -18,7 +18,7 @@ export default class IUserRepository {
     findByEmail(email) {
         throw new Error('Metodo no implementado')
     }
-    getById(id) {
+    findById(id) {
         throw new Error('Metodo no implementado')
     }
 }
