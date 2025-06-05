@@ -15,26 +15,26 @@ const saleRoutes = [
         method: 'post',
         path: '/addSale',
         handler: 'addSale',
-        protected: false
+        protected: true
     },
     {
         method: 'put',
         path: '/updateSale/:id',
         handler: 'updateSale',
-        protected: false
+        protected: true
     },
     
     {
         method: 'delete',
         path: '/deleteSale/:id',
         handler: 'deleteSale',
-        protected: false
+        protected: true
     },
     {
         method: 'patch',
         path: '/toggleSaleStatus/:id',
         handler: 'toggleSaleStatus',
-        protected: false
+        protected: true
     },
 ]
 
