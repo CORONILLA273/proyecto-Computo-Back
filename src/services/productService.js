@@ -40,4 +40,12 @@ export default class ProductService {
         }
         return this.productRepository.deleteProduct(id)
     }
+
+    async getProductById(id) {
+        const product = await this.productRepository.getProductById(id)
+        if (!product) {
+            throw { message: 'Product Not Found', statusCode: 404 }
+        }
+        return product
+    }
 }

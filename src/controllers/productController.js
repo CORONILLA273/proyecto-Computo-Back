@@ -41,4 +41,13 @@ export default class ProductController {
             next(error)
         }
     }
+
+    async getProductById(req, res, next) {
+        try {
+            const product = await this.productService.getProductById(req.params.id)
+            res.status(200).json(product)
+        } catch (error) {
+            next(error)
+        }
+    }
 }

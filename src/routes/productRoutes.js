@@ -30,6 +30,12 @@ const productRoutes = [
         handler: 'deleteProduct',
         protected: true
     },
+    {
+        method: 'get',
+        path: '/:id',
+        handler: 'getProductById',
+        protected: false
+    }
 ]
 
 productRoutes.forEach(route => {
