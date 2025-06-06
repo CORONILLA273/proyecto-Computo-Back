@@ -24,7 +24,7 @@ export default class CategoryService {
     }
 
     async updateCategory(id, categoryData) {
-        const updateCategory = await this.categoryRepository.getCategoryByiId(id)
+        const updateCategory = await this.categoryRepository.getCategoryById(id)
         if(!updateCategory) {
             throw { message: 'Category Not Found', statusCode: 404 }
         }
