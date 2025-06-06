@@ -1,26 +1,26 @@
-export default class IPurchaseRepository {
+export default class IPaymentRepository {
     
-    addPurchase(purchase) {
+    addPayment(payment) {
         throw new Error('Method Not Implemented')
     }
 
-    updatePurchase(id, updatePurchase) {
+    updatePayment(id, updatePayment) {
         throw new Error('Method Not Implemented')
     }
 
-    deletePurchase(id) {
+    deletePayment(id) {
         throw new Error('Method Not Implemented')
     }
 
-    getAllPurchases() {
+    getAllPayments() {
         throw new Error('Method Not Implemented')
     }
 
-    getPurchaseById(id) {
+    getPaymentById(id) {
         throw new Error('Method Not Implemented')
     }
 
-    togglePurchaseStatus(id, status) {
+    togglePaymentStatus(id, status) {
         throw new Error('Method Not Implemented')
     }
 }
