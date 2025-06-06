@@ -17,7 +17,7 @@ export default class PurchaseService {
     }
 
     async updatePurchase(id, purchaseData) {
-        const updatePurchase = await this.purchaseRepository.getPurchaseByiId(id)
+        const updatePurchase = await this.purchaseRepository.getPurchaseById(id)
         if(!updatePurchase) {
             throw { message: 'Purchase Not Found', statusCode: 404 }
         }
@@ -35,7 +35,7 @@ export default class PurchaseService {
     }
 
     async togglePurchaseStatus(id, newStatus) {
-            const togglePurchaseStatus = await this.purchaseRepository.getPurchaseByiId(id)
+            const togglePurchaseStatus = await this.purchaseRepository.getPurchaseById(id)
             if (!togglePurchaseStatus) {
                 throw { message: 'Purchase Not Found', statusCode: 404 }
             }
